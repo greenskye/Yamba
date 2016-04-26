@@ -1,12 +1,16 @@
 package com.brandon.yamba;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
@@ -17,6 +21,8 @@ public class StatusActivity extends AppCompatActivity {
     public static final String TAG = "yamba.StatusActivity";
     private EditText editStatus;
     private Button buttonTweet;
+    private TextView textCount;
+    private int defaultTextColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,8 @@ public class StatusActivity extends AppCompatActivity {
 
         editStatus = (EditText) findViewById(R.id.edit_status);
         buttonTweet = (Button) findViewById(R.id.button_tweet);
+        textCount = (TextView) findViewById(R.id.textCount);
+        defaultTextColor = textCount.getTextColors().getDefaultColor();
 
         buttonTweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +45,30 @@ public class StatusActivity extends AppCompatActivity {
         });
 
 
+        editStatus.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int count = 140 - editStatus.length();
+                textCount.setText(Integer.toString(count));
+                if (count < 10)
+                {
+                    textCount.setTextColor(Color.RED);
+                }
+                else {
+                    textCount.setTextColor(defaultTextColor);
+                }
+            }
+        });
     }
 
     private final class PostTask extends AsyncTask<String, Void, String> {
