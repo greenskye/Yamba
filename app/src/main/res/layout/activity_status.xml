@@ -9,8 +9,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.brandon.yamba.StatusActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/tweet_button"
+        android:id="@+id/button_tweet"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/edit_status"
+        android:layout_below="@+id/button_tweet"
+        android:layout_alignRight="@+id/button_tweet"
+        android:layout_alignEnd="@+id/button_tweet"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="@string/status_hint" />
 </RelativeLayout>
