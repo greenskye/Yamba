@@ -67,6 +67,12 @@ public class StatusActivity extends AppCompatActivity {
                 else {
                     textCount.setTextColor(defaultTextColor);
                 }
+
+                if(count <= 0){
+                    buttonTweet.setEnabled(false);
+                } else {
+                    buttonTweet.setEnabled(true);
+                }
             }
         });
     }
