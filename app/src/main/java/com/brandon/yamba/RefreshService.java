@@ -1,8 +1,18 @@
 package com.brandon.yamba;
 
 import android.app.IntentService;
+import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.marakana.android.yamba.clientlib.YambaClient;
+import com.marakana.android.yamba.clientlib.YambaClientException;
+
+import java.util.List;
 
 
 /**
@@ -37,9 +47,37 @@ public class RefreshService extends IntentService {
         super.onDestroy();
     }
 
+    //TODO refactor
+    private String userID = "student";
+    private String password = "password";
+    private String serverURL = "http://yamba.marakana.com/api"; // Correct URL: http://yamba.newcircle.com/api
+
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "Intent Delivered: " + intent);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        userID = prefs.getString("username", userID);
+        password = prefs.getString("password", password);
+        serverURL = prefs.getString("server", serverURL);
+
+        if (TextUtils.isEmpty(userID) || TextUtils.isEmpty(password))
+        {
+            Toast.makeText(this, "Update your username and password in Settings", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        YambaClient yambaClient = new YambaClient(userID, password, serverURL);
+        try {
+            List<YambaClient.Status> timeline = yambaClient.getTimeline(20);
+            for (YambaClient.Status s : timeline )
+            {
+                Log.d(TAG, s.getUser() + ": " + s.getMessage() );
+            }
+        } catch (YambaClientException e) {
+            e.printStackTrace();
+        }
+        return;
 
 //        if (intent != null) {
 //            final String action = intent.getAction();

@@ -11,4 +11,8 @@
         android:title="@string/mi_action_tweet"
     />
 
+    <item
+        android:id="@+id/mi_action_refresh"
+        android:title="@string/mi_action_refresh"/>
+
 </menu>
