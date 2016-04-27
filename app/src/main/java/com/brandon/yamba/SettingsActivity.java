@@ -33,7 +33,7 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity implements SettingsFragment.OnFragmentInteractionListener {
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -257,5 +257,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onFragmentInteraction(Uri uri) {
+        // empty
     }
 }
