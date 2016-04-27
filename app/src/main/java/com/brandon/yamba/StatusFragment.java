@@ -1,10 +1,12 @@
 package com.brandon.yamba;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +46,10 @@ public class StatusFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String userID = "student";
+    private String password = "password";
+    private String serverURL = "http://yamba.marakana.com/api"; // Correct URL: http://yamba.newcircle.com/api
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,6 +94,11 @@ public class StatusFragment extends Fragment {
         buttonTweet = (Button) view.findViewById(R.id.button_tweet);
         textCount = (TextView) view.findViewById(R.id.textCount);
         defaultTextColor = textCount.getTextColors().getDefaultColor();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        userID = prefs.getString("username", userID);
+        password = prefs.getString("password", password);
+        serverURL = prefs.getString("server", serverURL);
 
         buttonTweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +151,7 @@ public class StatusFragment extends Fragment {
         protected String doInBackground(String... params) {
             String status = params[0];
             String result = "Unknown Result";
-            YambaClient yambaCloud = new YambaClient("student", "password", "http://yamba.newcircle.com/api");
+            YambaClient yambaCloud = new YambaClient(userID, password, serverURL);
             try {
                 yambaCloud.postStatus( status );
                 Log.e(TAG, "Status sent: " + status);
