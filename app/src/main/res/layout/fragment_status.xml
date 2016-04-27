@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="140"
+        android:text="@string/character_limit"
         android:id="@+id/textCount"
         android:layout_above="@+id/edit_status"
         android:layout_alignParentLeft="true"
