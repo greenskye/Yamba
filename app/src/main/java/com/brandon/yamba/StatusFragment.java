@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.LayoutDirection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ import com.marakana.android.yamba.clientlib.YambaClientException;
 
 public class StatusFragment extends Fragment {
 
-    public static final String TAG = "yamba.StatusActivity";
+    private static final String TAG = "yamba.StatusActivity";
     private EditText editStatus;
     private Button buttonTweet;
     private TextView textCount;
