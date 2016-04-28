@@ -1,13 +1,9 @@
-package com.brandon.yamba.com.brandon.yamba.data;
+package com.brandon.yamba.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.marakana.android.yamba.clientlib.YambaClient;
-
-import java.util.List;
 
 /**
  * Created by BHARBO3 on 4/28/2016.

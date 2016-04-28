@@ -1,4 +1,4 @@
-package com.brandon.yamba;
+package com.brandon.yamba.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -11,10 +11,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.brandon.yamba.com.brandon.yamba.data.DbHelper;
-import com.brandon.yamba.com.brandon.yamba.data.StatusContract;
-
-import java.util.List;
+import com.brandon.yamba.data.DbHelper;
+import com.brandon.yamba.data.StatusContract;
 
 public class StatusProvider extends ContentProvider {
     private static final String TAG = StatusProvider.class.getSimpleName();

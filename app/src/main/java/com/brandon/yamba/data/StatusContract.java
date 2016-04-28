@@ -1,4 +1,4 @@
-package com.brandon.yamba.com.brandon.yamba.data;
+package com.brandon.yamba.data;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -11,8 +11,8 @@ public class StatusContract {
     public static final int DB_VERSION = 1;
     public static final String TABLE = "status";
 
-    // content://com.brandon.yamba.StatusProvider/status
-    public static final String AUTHORITY = "com.brandon.yamba.StatusProvider";
+    // content://com.brandon.yamba.provider.StatusProvider/status
+    public static final String AUTHORITY = "com.brandon.yamba.provider.StatusProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TABLE);
     public static final int STATUS_ITEM = 1;
     public static final int STATUS_DIR = 2;

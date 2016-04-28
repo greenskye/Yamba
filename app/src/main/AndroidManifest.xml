@@ -30,8 +30,8 @@
             android:exported="false" />
 
         <provider
-            android:name=".StatusProvider"
-            android:authorities="com.brandon.yamba.StatusProvider"
+            android:name=".provider.StatusProvider"
+            android:authorities="com.brandon.yamba.provider.StatusProvider"
             android:exported="false"/>
     </application>
 
