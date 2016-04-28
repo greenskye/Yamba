@@ -2,13 +2,18 @@ package com.brandon.yamba;
 
 import android.app.IntentService;
 import android.app.ListActivity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.brandon.yamba.com.brandon.yamba.data.DbHelper;
+import com.brandon.yamba.com.brandon.yamba.data.StatusContract;
 import com.marakana.android.yamba.clientlib.YambaClient;
 import com.marakana.android.yamba.clientlib.YambaClientException;
 
@@ -70,9 +75,20 @@ public class RefreshService extends IntentService {
         YambaClient yambaClient = new YambaClient(userID, password, serverURL);
         try {
             List<YambaClient.Status> timeline = yambaClient.getTimeline(20);
+                DbHelper dbHelper = new DbHelper(this);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
             for (YambaClient.Status s : timeline )
             {
                 Log.d(TAG, s.getUser() + ": " + s.getMessage() );
+
+                values.clear();
+                values.put(StatusContract.Column.ID, s.getId());
+                values.put(StatusContract.Column.USER, s.getUser());
+                values.put(StatusContract.Column.MESSAGE, s.getMessage());
+                values.put(StatusContract.Column.CREATED_AT, s.getCreatedAt().getTime());
+                db.insertWithOnConflict(StatusContract.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
             }
         } catch (YambaClientException e) {
             e.printStackTrace();
