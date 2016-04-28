@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -73,22 +74,27 @@ public class RefreshService extends IntentService {
         }
 
         YambaClient yambaClient = new YambaClient(userID, password, serverURL);
+        ContentValues values = new ContentValues();
+
         try {
+
+            int count = 0;
             List<YambaClient.Status> timeline = yambaClient.getTimeline(20);
-                DbHelper dbHelper = new DbHelper(this);
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
 
             for (YambaClient.Status s : timeline )
             {
-                Log.d(TAG, s.getUser() + ": " + s.getMessage() );
-
                 values.clear();
                 values.put(StatusContract.Column.ID, s.getId());
                 values.put(StatusContract.Column.USER, s.getUser());
                 values.put(StatusContract.Column.MESSAGE, s.getMessage());
                 values.put(StatusContract.Column.CREATED_AT, s.getCreatedAt().getTime());
-                db.insertWithOnConflict(StatusContract.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+
+                Uri uri = getContentResolver().insert(StatusContract.CONTENT_URI, values);
+
+                if(uri != null) {
+                    count++;
+                    Log.d(TAG, String.format("%s: %s", s.getUser(), s.getMessage()));
+                }
             }
         } catch (YambaClientException e) {
             e.printStackTrace();
