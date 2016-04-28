@@ -73,4 +73,6 @@
     <string name="mi_action_settings">Settings</string>
     <string name="mi_action_tweet">Send Tweet</string>
     <string name="mi_action_refresh">Refresh</string>
+    <string name="mi_action_purge">Purge</string>
+    <string name="fake_message">Android just became the #1 OS on the planet. Take that, Microsoft! http://t.co/123</string>
 </resources>
